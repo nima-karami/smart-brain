@@ -2,3 +2,10 @@
     width: 500px;
     max-width: 90vw;
 }
+
+.bounding-box {
+    z-index: 999;
+    position: absolute;
+    border: turquoise solid 3px;
+    border-radius: 5px;
+}
