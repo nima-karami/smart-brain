@@ -6,18 +6,36 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
 import Rank from './components/Rank/Rank';
 import Particles from 'react-tsparticles'
 import { loadFull } from "tsparticles";
+import Clarifai from 'clarifai';
 
 
 function App() {
   
   const [input, setInput] = useState('');
+  
+  const app = new Clarifai.App({
+    apiKey: 'b283cf87c1c6437a9c1dece41f044c83'
+  });
 
   const onInputChange = (event) => {
     console.log(event.target.value);
   }
 
   const onButtonSubmit = () => {
-    console.log('click')
+    console.log('click');
+    app.models.predict(
+      "a403429f2ddf4b49b307e318f00e528b",
+      "https://www.biography.com/.image/t_share/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg")
+      .then(
+      function(res) {
+        console.log(res)
+      },
+      function (err) {
+        console.log('error')
+        console.log(err);
+        // console.log(Clarifai);
+      }
+    )
   }
 
   const particlesInit = async (main) => {
