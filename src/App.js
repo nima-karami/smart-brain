@@ -32,7 +32,7 @@ function App() {
       input)
       .then(
       function(res) {
-        console.log(res)
+        console.log(res.outputs[0].data.regions[0].region_info.bounding_box)
       },
       function (err) {
         console.log('error')
@@ -43,7 +43,7 @@ function App() {
   }
 
   const particlesInit = async (main) => {
-    console.log(main);
+    // console.log(main);
 
     // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
     // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -52,7 +52,7 @@ function App() {
   };
 
   const particlesLoaded = (container) => {
-    console.log(container);
+    // console.log(container);
   };
 
   const partcileOptions = {
