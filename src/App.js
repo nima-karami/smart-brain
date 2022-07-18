@@ -2,30 +2,34 @@ import './App.css';
 import React, { useState } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
+import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-tsparticles'
 import { loadFull } from "tsparticles";
 import Clarifai from 'clarifai';
-
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 
 function App() {
   
   const [input, setInput] = useState('');
-  
+  const [imageURL, setImageURL] = useState('https://www.biography.com/.image/t_share/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg');
+
   const app = new Clarifai.App({
     apiKey: 'b283cf87c1c6437a9c1dece41f044c83'
   });
 
   const onInputChange = (event) => {
     console.log(event.target.value);
+    setInput(event.target.value);
   }
 
   const onButtonSubmit = () => {
     console.log('click');
+    setImageURL(input);
+
     app.models.predict(
       "a403429f2ddf4b49b307e318f00e528b",
-      "https://www.biography.com/.image/t_share/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg")
+      input)
       .then(
       function(res) {
         console.log(res)
@@ -133,8 +137,8 @@ function App() {
       options={partcileOptions}
     />
       
-      {/* <ImageLinkForm />
-      <FaceRecognition /> */}
+      
+      <FaceRecognition imageURL={imageURL} />
     </div>
   );
 }
