@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
@@ -10,6 +10,16 @@ import { loadFull } from "tsparticles";
 
 function App() {
   
+  const [input, setInput] = useState('');
+
+  const onInputChange = (event) => {
+    console.log(event.target.value);
+  }
+
+  const onButtonSubmit = () => {
+    console.log('click')
+  }
+
   const particlesInit = async (main) => {
     console.log(main);
 
@@ -97,7 +107,7 @@ function App() {
       <Navigation />
       <Logo className='z-max'/>
       <Rank />
-      <ImageLinkForm />
+      <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
       <Particles
       id="tsparticles"
       init={particlesInit}
