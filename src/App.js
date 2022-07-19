@@ -21,26 +21,34 @@ function App() {
       bottomRow: 223.33
   }
 
-  const [box, setBox] = useState(boxInitialState);
+  const [faceBoxes, setFaceBoxes] = useState(boxInitialState);
 
   const calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    console.log(clarifaiFace);
+    console.log('data: ',data);
     const image = document.getElementById('input-image');
     const width = Number(image.width);
     const height = Number(image.height);
-    return {
-      leftCol: Math.round(clarifaiFace.left_col * width),
-      topRow: Math.round(clarifaiFace.top_row * height),
-      rightCol: Math.round(width - (clarifaiFace.right_col * width)),
-      bottomRow: Math.round(height - (clarifaiFace.bottom_row * height))
+    const faceBoxes = [];
+    
+    for (let i=0; i < data.outputs[0].data.regions.length; i++) {
+      let clarifaiFace = data.outputs[0].data.regions[i].region_info.bounding_box;
+      let faceBox = {
+        leftCol: Math.round(clarifaiFace.left_col * width),
+        topRow: Math.round(clarifaiFace.top_row * height),
+        rightCol: Math.round(width - (clarifaiFace.right_col * width)),
+        bottomRow: Math.round(height - (clarifaiFace.bottom_row * height))
+      }
+
+      faceBoxes.push(faceBox);
     }
+
+    console.log('Face Boxes: ', faceBoxes);
+    console.log('Image Width: ', width,'Image Height: ', height);
+    return faceBoxes;
   };
 
-  const renderFaceBox = (box) => {
-    console.log('box', box);
-    console.log('destructured box', {...box});
-    setBox(box)
+  const renderFaceBox = (faceBoxes) => {
+    setFaceBoxes(faceBoxes)
   }
 
   const app = new Clarifai.App({
@@ -159,7 +167,7 @@ function App() {
     />
       
       
-      <FaceRecognition box={box} imageURL={imageURL} />
+      <FaceRecognition faceBoxes={faceBoxes} imageURL={imageURL} />
     </div>
   );
 }
