@@ -4,6 +4,7 @@ import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-tsparticles'
 import { loadFull } from "tsparticles";
@@ -75,6 +76,9 @@ function App() {
       );
   }
 
+  const onRouteChange = (route) => {
+    setRoute(route);
+  }
   const particlesInit = async (main) => {
     // console.log(main);
 
@@ -159,16 +163,19 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation />
-      { route === 'signin'
-      ? <Signin />
-      : <div>
-        <Logo className='z-max'/>
-        <Rank />
-        <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
-        <FaceRecognition faceBoxes={faceBoxes} imageURL={imageURL} />
-      </div>
-      }
+      <Navigation onRouteChange={onRouteChange} />
+      <Logo className='z-max'/>
+      
+      { (route === 'signin')? <Signin onRouteChange={onRouteChange} />
+        :(route === 'register')? <Register onRouteChange={onRouteChange} />
+        :<div>
+            <Rank />
+            <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
+            <FaceRecognition faceBoxes={faceBoxes} imageURL={imageURL} />
+          </div>
+        }
+        
+       
 
       <Particles
       id="tsparticles"
