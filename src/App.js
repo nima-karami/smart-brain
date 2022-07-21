@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
+import Signin from './components/Signin/Signin';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-tsparticles'
 import { loadFull } from "tsparticles";
@@ -22,6 +23,9 @@ function App() {
   }
 
   const [faceBoxes, setFaceBoxes] = useState(boxInitialState);
+  const [route, setRoute] = useState('signin');
+  
+
 
   const calculateFaceLocation = (data) => {
     console.log('data: ',data);
@@ -156,18 +160,22 @@ function App() {
   return (
     <div className="App">
       <Navigation />
-      <Logo className='z-max'/>
-      <Rank />
-      <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
+      { route === 'signin'
+      ? <Signin />
+      : <div>
+        <Logo className='z-max'/>
+        <Rank />
+        <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
+        <FaceRecognition faceBoxes={faceBoxes} imageURL={imageURL} />
+      </div>
+      }
+
       <Particles
       id="tsparticles"
       init={particlesInit}
       loaded={particlesLoaded}
       options={partcileOptions}
     />
-      
-      
-      <FaceRecognition faceBoxes={faceBoxes} imageURL={imageURL} />
     </div>
   );
 }
