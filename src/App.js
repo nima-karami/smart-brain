@@ -83,10 +83,25 @@ function App() {
 
     app.models.predict(
       "a403429f2ddf4b49b307e318f00e528b", input)
-      .then(res => renderFaceBox(calculateFaceLocation(res))
+      .then(res => {
+        if (res) {
+          fetch('http://localhost:3000/image', {
+              method: 'put',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({id: user.id})
+              })
+              .then(res => res.json())
+              .then(count => {
+                setUser({...user, entries: count})
+              })
+            }
+        renderFaceBox(calculateFaceLocation(res))
+
       .catch(err => console.log(err))
-      );
-  }
+    })
+  };
+  
+
 
   const onRouteChange = (route) => {
     setRoute(route);
