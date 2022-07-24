@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -14,6 +14,12 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 
 function App() {
   
+  useEffect(() => {
+    fetch('http://localhost:3000')
+      .then(response => response.json())
+      .then(console.log)
+  },[]);
+
   const [input, setInput] = useState('');
   const [imageURL, setImageURL] = useState('https://www.biography.com/.image/t_share/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg');
   const boxInitialState = {
@@ -26,7 +32,7 @@ function App() {
   const [faceBoxes, setFaceBoxes] = useState(boxInitialState);
   const [route, setRoute] = useState('signin');
   
-
+ 
 
   const calculateFaceLocation = (data) => {
     console.log('data: ',data);
@@ -79,6 +85,8 @@ function App() {
   const onRouteChange = (route) => {
     setRoute(route);
   }
+
+
   const particlesInit = async (main) => {
     // console.log(main);
 
@@ -163,7 +171,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation onRouteChange={onRouteChange} />
+      <Navigation onRouteChange={onRouteChange} route={route} />
       <Logo className='z-max'/>
       
       { (route === 'signin')? <Signin onRouteChange={onRouteChange} />
