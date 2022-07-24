@@ -31,7 +31,13 @@ function App() {
 
   const [faceBoxes, setFaceBoxes] = useState(boxInitialState);
   const [route, setRoute] = useState('signin');
-  
+  const [user, setUser] = useState({
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  });
  
 
   const calculateFaceLocation = (data) => {
@@ -86,6 +92,17 @@ function App() {
     setRoute(route);
   }
 
+  const loadUser = (data) => {
+    console.log(data);
+    setUser({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    });
+
+  }
 
   const particlesInit = async (main) => {
     // console.log(main);
@@ -102,7 +119,7 @@ function App() {
 
   const partcileOptions = {
     zLayers:1,
-    fpsLimit: 60,
+    fpsLimit: 80,
     interactivity: {
       events: {
         onClick: {
@@ -117,7 +134,7 @@ function App() {
       },
       modes: {
         push: {
-          quantity: 2,
+          quantity: 5,
         },
         repulse: {
           distance: 200,
@@ -154,7 +171,7 @@ function App() {
           enable: true,
           area: 800,
         },
-        value: 50,
+        value: 100,
       },
       opacity: {
         value: 0.5,
@@ -172,12 +189,12 @@ function App() {
   return (
     <div className="App">
       <Navigation onRouteChange={onRouteChange} route={route} />
-      <Logo className='z-max'/>
+      <Logo className='z-max' />
       
-      { (route === 'signin')? <Signin onRouteChange={onRouteChange} />
-        :(route === 'register')? <Register onRouteChange={onRouteChange} />
+      { (route === 'signin')? <Signin onRouteChange={onRouteChange} loadUser={loadUser} />
+        :(route === 'register')? <Register onRouteChange={onRouteChange} loadUser={loadUser} />
         :<div>
-            <Rank />
+            <Rank user={user}/>
             <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
             <FaceRecognition faceBoxes={faceBoxes} imageURL={imageURL} />
           </div>
