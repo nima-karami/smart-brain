@@ -21,9 +21,9 @@ const Register = ({ onRouteChange, loadUser }) => {
 
     const onSubmitRegister = (event) => {
         event.preventDefault();
-        console.log("name: ", registerName);
-        console.log("email: ", registerEmail);
-        console.log("pass: ", registerPass);
+        // console.log("name: ", registerName);
+        // console.log("email: ", registerEmail);
+        // console.log("pass: ", registerPass);
         
 
         fetch('http://localhost:3000/register', {

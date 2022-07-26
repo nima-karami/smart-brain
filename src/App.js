@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -8,17 +8,11 @@ import Register from './components/Register/Register';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-tsparticles'
 import { loadFull } from "tsparticles";
-import Clarifai from 'clarifai';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 
 
 function App() {
   
-  useEffect(() => {
-    fetch('http://localhost:3000')
-      .then(response => response.json())
-      .then(console.log)
-  },[]);
 
   const [input, setInput] = useState('');
   const [imageURL, setImageURL] = useState('https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg');
@@ -43,7 +37,7 @@ function App() {
  
 
   const calculateFaceLocation = (data) => {
-    console.log('data: ',data);
+    // console.log('data: ',data);
     const image = document.getElementById('input-image');
     const width = Number(image.width);
     const height = Number(image.height);
@@ -61,8 +55,8 @@ function App() {
       faceBoxes.push(faceBox);
     }
 
-    console.log('Face Boxes: ', faceBoxes);
-    console.log('Image Width: ', width,'Image Height: ', height);
+    // console.log('Face Boxes: ', faceBoxes);
+    // console.log('Image Width: ', width,'Image Height: ', height);
     return faceBoxes;
   };
 
@@ -70,21 +64,20 @@ function App() {
     setFaceBoxes(faceBoxes)
   }
 
-  const app = new Clarifai.App({
-    apiKey: 'b283cf87c1c6437a9c1dece41f044c83'
-  });
-
   const onInputChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setInput(event.target.value);
   }
 
   const onButtonSubmit = () => {
-    console.log('click');
+    // console.log('click');
     setImageURL(input);
-
-    app.models.predict(
-      "a403429f2ddf4b49b307e318f00e528b", input)
+    fetch('http://localhost:3000/imageurl', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({input: input})
+      })
+      .then(response => response.json())
       .then(res => {
         if (res) {
           fetch('http://localhost:3000/image', {
@@ -98,9 +91,8 @@ function App() {
               })
             }
         renderFaceBox(calculateFaceLocation(res))
-
+          })
       .catch(err => console.log(err))
-    })
   };
   
 

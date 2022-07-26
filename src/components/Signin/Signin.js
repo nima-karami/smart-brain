@@ -18,8 +18,8 @@ const Signin = ({ onRouteChange, loadUser }) => {
 
     const onSubmitSignIn = (event) => {
         event.preventDefault();
-        console.log("user: ", signInEmail);
-        console.log("pass: ", signInPass);
+        // console.log("user: ", signInEmail);
+        // console.log("pass: ", signInPass);
         
 
         fetch('http://localhost:3000/signin', {
