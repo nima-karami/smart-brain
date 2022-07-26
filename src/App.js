@@ -21,7 +21,7 @@ function App() {
   },[]);
 
   const [input, setInput] = useState('');
-  const [imageURL, setImageURL] = useState('https://www.biography.com/.image/t_share/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg');
+  const [imageURL, setImageURL] = useState('https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg');
   const boxInitialState = {
       leftCol: 168.72,
       topRow: 43.10,
@@ -31,13 +31,15 @@ function App() {
 
   const [faceBoxes, setFaceBoxes] = useState(boxInitialState);
   const [route, setRoute] = useState('signin');
-  const [user, setUser] = useState({
+  const initialUserState = {
     id: '',
     name: '',
     email: '',
     entries: 0,
     joined: ''
-  });
+  };
+
+  const [user, setUser] = useState(initialUserState);
  
 
   const calculateFaceLocation = (data) => {
@@ -104,6 +106,12 @@ function App() {
 
 
   const onRouteChange = (route) => {
+    if (route === 'signin') {
+      setImageURL('https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgwNDU1MTgzMTI0Mjc3MTAw/gettyimages-1257937597.jpg');
+      setFaceBoxes(boxInitialState);
+      setUser(initialUserState);
+    }
+    
     setRoute(route);
   }
 
