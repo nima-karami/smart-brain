@@ -72,7 +72,7 @@ function App() {
   const onButtonSubmit = () => {
     // console.log('click');
     setImageURL(input);
-    fetch('http://localhost:3000/imageurl', {
+    fetch('https://nk-smart-brain-api.herokuapp.com/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({input: input})
@@ -80,7 +80,7 @@ function App() {
       .then(response => response.json())
       .then(res => {
         if (res) {
-          fetch('http://localhost:3000/image', {
+          fetch('https://nk-smart-brain-api.herokuapp.com/image', {
               method: 'put',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({id: user.id})
