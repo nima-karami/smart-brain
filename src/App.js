@@ -178,7 +178,7 @@ function App() {
           default: "bounce",
         },
 
-        decay: 0.001,
+        decay: 0.0001,
         random: false,
         speed: 2,
         straight: false,
