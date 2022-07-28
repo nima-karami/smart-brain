@@ -108,7 +108,7 @@ function App() {
   }
 
   const loadUser = (data) => {
-    console.log(data);
+    // console.log(data);
     setUser({
       id: data.id,
       name: data.name,
