@@ -177,6 +177,8 @@ function App() {
         outModes: {
           default: "bounce",
         },
+
+        decay: 0.001,
         random: false,
         speed: 2,
         straight: false,
@@ -186,7 +188,7 @@ function App() {
           enable: true,
           area: 800,
         },
-        value: 100,
+        value: 150,
       },
       opacity: {
         value: 0.5,
