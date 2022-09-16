@@ -133,8 +133,8 @@ function App() {
   };
 
   const partcileOptions = {
-    zLayers:1,
-    fpsLimit: 80,
+    zLayers:0,
+    fpsLimit: 60,
     interactivity: {
       events: {
         onClick: {
@@ -188,7 +188,7 @@ function App() {
           enable: true,
           area: 800,
         },
-        value: 150,
+        value: 20,
       },
       opacity: {
         value: 0.5,
